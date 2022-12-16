@@ -4,22 +4,28 @@
 const MissionUtils = require("@woowacourse/mission-utils");
 
 const InputView = {
+  MINIMUM_BRIDGE_SIZE: 3,
+  MAXIMUM_BRIDGE_SIZE: 20,
+
   /**
    * 다리의 길이를 입력받는다.
    */
   readBridgeSize() {
     MissionUtils.Console.readLine('다리의 길이를 입력해주세요.', (answer) => {
       try {
-        if(isNaN(answer)) {
-          throw '[ERROR] 입력 값이 숫자가 아닙니다.';
-        }
-        if(answer < 3 || answer > 20) {
-          throw '[ERROR] 입력 값이 숫자가 아닙니다.';
-        }
+        this.invaildateBridgeSize(answer); 
       } catch(e) {
         MissionUtils.Console.print(e);
       }
     });
+  },
+  invaildateBridgeSize(bridgeSize) {
+    if(isNaN(bridgeSize)) {
+      throw '[ERROR] 입력 값이 숫자가 아닙니다.';
+    }
+    if(bridgeSize < this.MINIMUM_BRIDGE_SIZE || bridgeSize > this.MAXIMUM_BRIDGE_SIZE) {
+      throw '[ERROR] 입력 값이 숫자가 아닙니다.';
+    }
   },
 
   /**
