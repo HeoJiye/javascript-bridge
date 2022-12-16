@@ -3,10 +3,11 @@
  */
 class BridgeGame {
   #bridge;
-  #aheadBridge;
+  #path;
 
   constructor(bridge) {
-    this.#bridge = this.#aheadBridge = bridge;
+    this.#bridge = bridge;
+    this.#path = [];
   }
 
   /**
@@ -15,9 +16,12 @@ class BridgeGame {
    * 이동을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
   move(moving) {
-    if(moving != this.#aheadBridge.shift()) throw '다리 건너기 실패!';
-    
-    if(this.#aheadBridge.length == 0) return false;
+    this.#path.push(moving);
+
+    if(moving != this.#bridge[this.#path.length - 1]) {
+      throw '다리 건너기 실패!';
+    } 
+    if(this.#path.length === this.#bridge.length) return false;
     return true;
   }
 
