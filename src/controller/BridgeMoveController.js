@@ -12,11 +12,11 @@ class BridgeMoveController {
 
     exetute() {
         InputView.readMoving(input => {
-            this.bridgeMove(input);
+            this.inputCallback(input);
         });
     }
 
-    bridgeMove(moving) {
+    inputCallback(moving) {
         try {
             if (this.#bridgeGame.move(moving)) {
                 OutputView.printMap(this.#bridgeGame.getPath(), true);

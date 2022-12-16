@@ -8,10 +8,10 @@ const BridgeMoveController = require("./BridgeMoveController");
 class BridgeMakeController {
     exetute() {
         InputView.readBridgeSize((input) => {
-            this.bridgeMake(input);
+            this.inputCallback(input);
         });
     }
-    bridgeMake(bridgeSize) {
+    inputCallback(bridgeSize) {
         const bridge = BridgeMaker.makeBridge(bridgeSize, BridgeRandomNumberGenerator.generate);
         const bridgeGame = new BridgeGame(bridge);
 
