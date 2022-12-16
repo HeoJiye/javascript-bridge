@@ -4,10 +4,12 @@
 class BridgeGame {
   #bridge;
   #path;
+  #tryNum;
 
   constructor(bridge) {
     this.#bridge = bridge;
     this.#path = [];
+    this.#tryNum = 1;
   }
 
   /**
@@ -32,6 +34,14 @@ class BridgeGame {
    */
   retry() {
     this.#path.length = 0;
+    this.#tryNum += 1;
+  }
+
+  getPath() {
+    return this.#path;
+  }
+  getTryNum() {
+    return this.#tryNum;
   }
 }
 

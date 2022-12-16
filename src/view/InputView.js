@@ -17,7 +17,7 @@ const InputView = {
    * 다리의 길이를 입력받는다.
    */
   readBridgeSize(callback) {
-    MissionUtils.Console.readLine('다리의 길이를 입력해주세요.', (answer) => {
+    MissionUtils.Console.readLine('다리의 길이를 입력해주세요.\n', (answer) => {
       try {
         this.invaildateBridgeSize(answer); 
       } catch(e) {
@@ -40,26 +40,32 @@ const InputView = {
   /**
    * 사용자가 이동할 칸을 입력받는다.
    */
-  readMoving() {
-    MissionUtils.Console.readLine('이동할 칸을 선택해주세요. (위: U, 아래: D)', (answer) => {
+  readMoving(callback) {
+    MissionUtils.Console.readLine('이동할 칸을 선택해주세요. (위: U, 아래: D)\n', (answer) => {
       try {
         this.isExpectValue(answer, [this.INPUT_UP_MOVING, this.INPUT_DOWN_MOVING]);
       } catch (e) {
         MissionUtils.Console.print(e);
+        this.readMoving(callback);
+        return;
       }
+      callback(answer);
     });
   },
 
   /**
    * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
    */
-  readGameCommand() {
-    MissionUtils.Console.readLine('게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)', (answer) => {
+  readGameCommand(callback) {
+    MissionUtils.Console.readLine('게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)\n', (answer) => {
       try {
         this.isExpectValue(answer, [this.INPUT_RESTART, this.INPUT_QUIT]);
       } catch (e) {
         MissionUtils.Console.print(e);
+        this.readGameCommand(callback);
+        return;
       }
+      callback(answer);
     });
   },
 
