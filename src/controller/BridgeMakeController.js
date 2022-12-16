@@ -3,18 +3,19 @@ const BridgeGame = require("../model/BridgeGame");
 const BridgeMaker = require("../BridgeMaker");
 const BridgeRandomNumberGenerator = require("../BridgeRandomNumberGenerator");
 
-const BridgeMoveController = require("../BridgeMoveController");
+const BridgeMoveController = require("./BridgeMoveController");
 
 class BridgeMakeController {
     exetute() {
-        InputView.readBridgeSize(inputCallback);
+        InputView.readBridgeSize((input) => {
+            this.bridgeMake(input);
+        });
     }
-    inputCallback(input) {
-        const bridge = BridgeMaker.makeBridge(input, BridgeRandomNumberGenerator.generate);
+    bridgeMake(bridgeSize) {
+        const bridge = BridgeMaker.makeBridge(bridgeSize, BridgeRandomNumberGenerator.generate);
         const bridgeGame = new BridgeGame(bridge);
 
-        const controller = new BridgeMoveController(bridgeGame);
-        controller.exetute();
+        new BridgeMoveController(bridgeGame).exetute();
     }
 }
 
