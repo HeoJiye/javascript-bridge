@@ -24,4 +24,16 @@ describe("BridgeGame unit test", () => {
         bridgeGame.move('D');
         expect(bridgeGame.move('U')).toEqual(false);
     });
+    test("게임 재시작", () => {
+        const bridgeGame = new BridgeGame(['U', 'D', 'U']);
+        
+        bridgeGame.move('U');
+        expect(() => bridgeGame.move('U')).toThrow();
+
+        bridgeGame.retry();
+
+        bridgeGame.move('U');
+        bridgeGame.move('D');
+        expect(bridgeGame.move('U')).toEqual(false);
+    });
 });
