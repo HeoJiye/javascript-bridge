@@ -2,17 +2,9 @@
  * 사용자로부터 입력을 받는 역할을 한다.
  */
 const MissionUtils = require("@woowacourse/mission-utils");
+const constants = require("../Constants");
 
 const InputView = {
-  MINIMUM_BRIDGE_SIZE: 3,
-  MAXIMUM_BRIDGE_SIZE: 20,
-  
-  INPUT_UP_MOVING: 'U',
-  INPUT_DOWN_MOVING: 'D',
-
-  INPUT_RESTART: 'R',
-  INPUT_QUIT: 'Q',
-  
   /**
    * 다리의 길이를 입력받는다.
    */
@@ -32,7 +24,7 @@ const InputView = {
     if(isNaN(bridgeSize)) {
       throw '[ERROR] 입력 값이 숫자가 아닙니다.';
     }
-    if(bridgeSize < this.MINIMUM_BRIDGE_SIZE || bridgeSize > this.MAXIMUM_BRIDGE_SIZE) {
+    if(bridgeSize < constants.BRIDGE_SIZE.MINIMUM || bridgeSize > constants.BRIDGE_SIZE.MAXIMUM) {
       throw '[ERROR] 입력 값이 숫자가 아닙니다.';
     }
   },
@@ -41,9 +33,9 @@ const InputView = {
    * 사용자가 이동할 칸을 입력받는다.
    */
   readMoving(callback) {
-    MissionUtils.Console.readLine('이동할 칸을 선택해주세요. (위: U, 아래: D)\n', (answer) => {
+    MissionUtils.Console.readLine(`이동할 칸을 선택해주세요. (위: ${constants.MOVING[1]}, 아래: ${constants.MOVING[0]})\n`, (answer) => {
       try {
-        this.isExpectValue(answer, [this.INPUT_UP_MOVING, this.INPUT_DOWN_MOVING]);
+        this.isExpectValue(answer, constants.MOVING);
       } catch (e) {
         MissionUtils.Console.print(e);
         this.readMoving(callback);
@@ -57,9 +49,9 @@ const InputView = {
    * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
    */
   readGameCommand(callback) {
-    MissionUtils.Console.readLine('게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)\n', (answer) => {
+    MissionUtils.Console.readLine(`게임을 다시 시도할지 여부를 입력해주세요. (재시도: ${constants.COMMAND.RESTART}, 종료: ${constants.COMMAND.QUIT})\n`, (answer) => {
       try {
-        this.isExpectValue(answer, [this.INPUT_RESTART, this.INPUT_QUIT]);
+        this.isExpectValue(answer, constants.COMMAND);
       } catch (e) {
         MissionUtils.Console.print(e);
         this.readGameCommand(callback);
@@ -70,10 +62,11 @@ const InputView = {
   },
 
   isExpectValue(value, expectedValues) {
-    if(expectedValues.indexOf(value) === -1) {
-      throw '[ERROR] 입력 값이 기댓값과 다릅니다.';
+    for(let key in expectedValues) {
+      if (expectedValues[key] === value) return;
     }
-  } 
+    throw '[ERROR] 입력 값이 기댓값과 다릅니다.';
+  },
 };
 
 module.exports = InputView;

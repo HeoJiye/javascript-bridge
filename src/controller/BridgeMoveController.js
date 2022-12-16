@@ -25,7 +25,7 @@ class BridgeMoveController {
                 OutputView.printResult(this.#bridgeGame.getPath(), true, this.#bridgeGame.getTryNum());
             }
         } catch(e) {
-            new BridgeGameFailController(this.#bridgeGame).extute();
+            new BridgeGameFailController(this.#bridgeGame).exetute();
         }
     }
 }

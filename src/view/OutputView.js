@@ -2,6 +2,7 @@
  * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
  */
 const MissionUtils = require("@woowacourse/mission-utils");
+const constants = require("../Constants");
 
 const OutputView = {
   /**
@@ -10,32 +11,20 @@ const OutputView = {
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
   printMap(path, success) {
-    const map = this.makeMap(path, success);
-
-    MissionUtils.Console.print(this.mapToString(map['U']));
-    MissionUtils.Console.print(this.mapToString(map['D']));
+    MissionUtils.Console.print(this.mapSideToString(path, constants.MOVING[1], success));
+    MissionUtils.Console.print(this.mapSideToString(path, constants.MOVING[0], success));
   },
-  initMap(length) {
-    const map = {
-      'U': Array.from({length}, () => ' '), 
-      'D': Array.from({length}, () => ' ')
-    };
-    return map;
-  },
-  makeMap(path, success) {
-    const map = this.initMap(path.length);
+  mapSideToString(path, side, success) {
+    const map = Array.from({length: path.length}, () => ' ');
 
     for(let i = 0; i < path.length; i++) {
-      if(!success && i === path.length-1) {
-        map[path[i]][i] = 'X';
-        break;
+      const mark = !success && i === path.length-1 ? 'X' : 'O';
+
+      if(path[i] === side) {
+        map[i] = mark;
       }
-      map[path[i]][i] = 'O';
     }
-    return map;
-  },
-  mapToString(map_side) {
-    return '[ ' + map_side.join(' | ') + ' ]';
+    return '[ ' + map.join(' | ') + ' ]';
   },
 
 

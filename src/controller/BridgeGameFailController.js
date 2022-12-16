@@ -1,5 +1,6 @@
 const InputView = require("../view/InputView");
 const OutputView = require("../view/OutputView");
+const constants = require("../Constants");
 
 const BridgeMoveController = require("./BridgeMoveController");
 
@@ -16,11 +17,11 @@ class BridgeGameFailController {
         });
     }
     inputCallback(command) {
-        if(command === InputView.INPUT_QUIT) {
+        if(command === constants.COMMAND.QUIT) {
             OutputView.printResult(this.#bridgeGame.getPath(), false, this.#bridgeGame.getTryNum());
             return;
         }
-        if(command === InputView.INPUT_RESTART) {
+        if(command === constants.COMMAND.RESTART) {
             this.#bridgeGame.retry();
             new BridgeMoveController(bridgeGame).exetute();
         }
