@@ -10,22 +10,34 @@ const OutputView = {
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
   printMap(path, success) {
-    const path_side = { 
-      'U': Array.from({length: path.length}, () => ' '), 
-      'D': Array.from({length: path.length}, () => ' ')
+    const map = this.makeMap(path, success);
+
+    MissionUtils.Console.print(this.mapToString(map['U']));
+    MissionUtils.Console.print(this.mapToString(map['D']));
+  },
+  initMap(length) {
+    const map = {
+      'U': Array.from({length}, () => ' '), 
+      'D': Array.from({length}, () => ' ')
     };
+    return map;
+  },
+  makeMap(path, success) {
+    const map = this.initMap(path.length);
 
     for(let i = 0; i < path.length; i++) {
       if(!success && i === path.length-1) {
-        path_side[path[i]][i] = 'X';
+        map[path[i]][i] = 'X';
         break;
       }
-      path_side[path[i]][i] = 'O';
+      map[path[i]][i] = 'O';
     }
-
-    MissionUtils.Console.print('[ ' + path_side['U'].join(' | ') + ' ]');
-    MissionUtils.Console.print('[ ' + path_side['D'].join(' | ') + ' ]');
+    return map;
   },
+  mapToString(map_side) {
+    return '[ ' + map_side.join(' | ') + ' ]';
+  },
+
 
   /**
    * 게임의 최종 결과를 정해진 형식에 맞춰 출력한다.
