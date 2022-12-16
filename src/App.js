@@ -8,5 +8,5 @@ class App {
     controller.exetute();
   }
 }
-  
+
 module.exports = App;
