@@ -8,18 +8,29 @@
 <br>
 
 ## 🌉 다리 건너기 프로그램 개요
-- App
+### 📦 Model
 - BridgeGame
-- BridgeMaker
-- BridgeRandomNumberGenerator
+### 🎨 View
 - InputView
 - OutputView
+### 🎮 Controller
+- BridgeMakeController
+- BridgeMoveController
+- BridgeGameSuccessController
+- BridgeGameFailController
+
+<br>
+
+### ETC
+- App
+- BridgeMaker
+- BridgeRamdomNumberGenerator
 
 <br>
 
 ## 📋 기능 목록 나열
 
-###  🎮 입력
+###  💻 입력
 - [x] 다리 길이 입력
     - [x] 예외) 입력 값이 숫자가 아닌 경우
     - [x] 예외) 입력 값이 범위에서 벗어난 경우
