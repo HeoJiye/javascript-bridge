@@ -16,13 +16,16 @@ const InputView = {
   /**
    * 다리의 길이를 입력받는다.
    */
-  readBridgeSize() {
+  readBridgeSize(callback) {
     MissionUtils.Console.readLine('다리의 길이를 입력해주세요.', (answer) => {
       try {
         this.invaildateBridgeSize(answer); 
       } catch(e) {
         MissionUtils.Console.print(e);
+        this.readBridgeSize(callback);
+        return;
       }
+      callback(answer);
     });
   },
   invaildateBridgeSize(bridgeSize) {
