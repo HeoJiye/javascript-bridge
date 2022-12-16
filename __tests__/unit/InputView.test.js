@@ -51,4 +51,20 @@ describe("InputView unit test", () => {
 
     expectLogContains(getOutput(logSpy), ["[ERROR]"]);
   });
+  test("플레이어가 이동할 칸 입력: 예외) 입력 값이 기대 값과 다른 경우", () => {
+    mockQuestions(["d"]);
+
+    const logSpy = getLogSpy();
+    InputView.readMoving();
+
+    expectLogContains(getOutput(logSpy), ["[ERROR]"]);
+  });
+  test("게임 재시작/종료 여부 입력: 예외) 입력 값이 기대 값과 다른 경우", () => {
+    mockQuestions(["d"]);
+
+    const logSpy = getLogSpy();
+    InputView.readGameCommand();
+
+    expectLogContains(getOutput(logSpy), ["[ERROR]"]);
+  });
 });
