@@ -49,6 +49,33 @@ describe("OutputView unit test", () => {
         ]);
         expectBridgeOrder(log, "[ O |   | X ]", "[   | O |   ]");
     });
-    
+    test("게임 결과 출력 (성공)", () => {
+        const logSpy = getLogSpy();
+        OutputView.printResult(['U', 'D', 'U'], true, 1);
+
+        const log = getOutput(logSpy);
+        expectLogContains(log, [
+            "최종 게임 결과",
+            "[ O |   | O ]",
+            "[   | O |   ]",
+            "게임 성공 여부: 성공",
+            "총 시도한 횟수: 1",
+        ]);
+        expectBridgeOrder(log, "[ O |   | X ]", "[   | O |   ]");
+    });
+    test("게임 결과 출력 (실패)", () => {
+        const logSpy = getLogSpy();
+        OutputView.printResult(['U', 'D', 'U'], false, 5);
+
+        const log = getOutput(logSpy);
+        expectLogContains(log, [
+            "최종 게임 결과",
+            "[ O |   | X ]",
+            "[   | O |   ]",
+            "게임 성공 여부: 실패",
+            "총 시도한 횟수: 5",
+        ]);
+        expectBridgeOrder(log, "[ O |   | X ]", "[   | O |   ]");
+    });
 });
 
