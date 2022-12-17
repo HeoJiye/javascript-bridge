@@ -43,6 +43,13 @@ class BridgeGame {
   getTryNum() {
     return this.#tryNum;
   }
+  isSuccess() {
+    const lastIdx = this.#path.length-1;
+    if (this.#bridge[lastIdx] === this.#path[lastIdx]) {
+      return true;
+    }
+    return false;
+  }
 }
 
 module.exports = BridgeGame;

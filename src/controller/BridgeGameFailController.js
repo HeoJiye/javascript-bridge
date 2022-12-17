@@ -1,8 +1,8 @@
 const InputView = require("../view/InputView");
-const OutputView = require("../view/OutputView");
 const constants = require("../Constants");
 
 const BridgeMoveController = require("./BridgeMoveController");
+const BridgeGameEndController = require("./BridgeGameEndController");
 
 class BridgeGameFailController {
     #bridgeGame;
@@ -13,17 +13,17 @@ class BridgeGameFailController {
 
     exetute() {
         InputView.readGameCommand((input) => {
-            this.inputCallback(input);
+            const controller = this.inputCallback(input);
+            controller.exetute;
         });
     }
     inputCallback(command) {
         if(command === constants.COMMAND.QUIT) {
-            OutputView.printResult(this.#bridgeGame.getPath(), false, this.#bridgeGame.getTryNum());
-            return;
+            return new BridgeGameEndController(this.#bridgeGame, true);
         }
         if(command === constants.COMMAND.RESTART) {
             this.#bridgeGame.retry();
-            new BridgeMoveController(bridgeGame).exetute();
+            return BridgeMoveController(bridgeGame);
         }
     }
 }

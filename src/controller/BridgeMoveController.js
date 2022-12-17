@@ -1,5 +1,6 @@
 const InputView = require("../view/InputView");
 const OutputView = require("../view/OutputView");
+const BridgeGameEndController = require("./BridgeGameEndController");
 
 const BridgeGameFailController = require("./BridgeGameFailController");
 
@@ -12,20 +13,20 @@ class BridgeMoveController {
 
     exetute() {
         InputView.readMoving(input => {
-            this.inputCallback(input);
+            const controller = this.inputCallback(input);
+            controller.exetute();
         });
     }
 
     inputCallback(moving) {
         try {
             if (this.#bridgeGame.move(moving)) {
-                OutputView.printMap(this.#bridgeGame.getPath(), true);
-                this.exetute();
-            } else {
-                OutputView.printResult(this.#bridgeGame.getPath(), true, this.#bridgeGame.getTryNum());
+                OutputView.printMap(this.#bridgeGame.getPath(), this.#bridgeGame.isSuccess());
+                return this;
             }
+            return new BridgeGameEndController(this.#bridgeGame);
         } catch(e) {
-            new BridgeGameFailController(this.#bridgeGame).exetute();
+            return new BridgeGameFailController(this.#bridgeGame);
         }
     }
 }
